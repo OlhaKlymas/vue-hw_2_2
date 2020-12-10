@@ -30,6 +30,7 @@ const SearchContact = {
                 }
             })
             this.showContent = true
+            this.$emit('refresh', this.searchContactList)
         },
         deleteItem(i){    
             this.searchContactList.map(item => {
@@ -55,9 +56,6 @@ const SearchContact = {
                 <p v-if="!findText">Такого контакта нет</p>
                 <p v-if="findText">Найдено {{ count }} контакта</p>
             </div>
-            <ol>
-                <contact-item v-for="item in searchContactList" :item="item" :key="item.id" @deleteItem="deleteItem"></contact-item>
-            </ol>
         </form>
     `
 }

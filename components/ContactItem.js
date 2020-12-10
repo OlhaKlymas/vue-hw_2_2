@@ -23,9 +23,11 @@ const ContactItem = {
 	        <button v-if="!showMore" @click="showMoreBtn">Подробнее</button>
 	        <button v-else @click="showMore=false">Скрыть</button>
 	        <button @click="deleteItem">X</button>
-	        <div v-show="showMore" v-for="(value, key) in item">
-	        	<p><span>{{ key }}:</span> {{ value }}</p>
-	        </div>
+            <div v-show="showMore">
+                <div v-for="(value, key) in item" :key="key">
+                    <p><span>{{ key }}:</span> {{ value }}</p>
+                </div>
+            </div>
         </li>
     `
 }

@@ -3,7 +3,7 @@ const ContactList = {
         ContactItem
     },
     props: {
-        contactList: {
+        liveList: {
             type: Array
         }
     },
@@ -14,7 +14,7 @@ const ContactList = {
     },
     template: `
         <ol>
-            <contact-item v-for="item in contactList" :key="item.id" :item="item" @deleteItem="deleteItem"></contact-item>
+            <contact-item v-for="item in liveList" :key="item.id" :item="item" @deleteItem="deleteItem"></contact-item>
         </ol>
     `
 }

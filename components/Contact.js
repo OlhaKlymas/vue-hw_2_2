@@ -24,13 +24,20 @@ const Contact = {
             ],
             addContactContent: false,
             searchContactContent: false,
-            showAllList: true
+            showAllList: true,
+            liveList: []
         }
     },
+    created() {
+        this.liveList = this.contactList
+    },
     methods: {
+        refresh(a){
+            this.liveList = a          
+        },
         addContactItem(newContact){
             this.contactList.push(newContact)
-            console.log(this.contactList)
+            this.liveList = this.contactList
         },
         deleteContact(i){    
             this.contactList.map(item => {
@@ -41,20 +48,28 @@ const Contact = {
                     return this.contactList
                 }
             })
+            this.liveList.map(item => {
+                if(item.id === i){
+                    return this.liveList.splice(this.liveList.indexOf(item), 1);    
+                }
+                else{
+                    return this.liveList
+                }
+            })
         }
     },
     template: `
         <div class="contact-wrap">
             <div class="button-group">
-                <button @click="addContactContent = false, searchContactContent = false, showAllList = true">Посмотреть все контакты</button>
-                <button @click="addContactContent = true, searchContactContent = false, showAllList = true">Создать контакты</button>
+                <button @click="addContactContent = false, searchContactContent = false, showAllList = true, liveList = contactList">Посмотреть все контакты</button>
+                <button @click="addContactContent = true, searchContactContent = false, showAllList = true, liveList = contactList">Создать контакты</button>
                 <button @click="searchContactContent = true, addContactContent = false, showAllList = false">Искать контакт</button>
             </div>
             <div v-if="(addContactContent || searchContactContent)">
                 <add-contact v-if="addContactContent" :contactList="contactList" @addContactItem="addContactItem"></add-contact>
-                <search-contact v-if="searchContactContent" :contactList="contactList" @deleteContact="deleteContact"></search-contact>
+                <search-contact v-if="searchContactContent" :contactList="contactList" @deleteContact="deleteContact" @refresh="refresh"></search-contact>
             </div>
-            <contact-list v-if="showAllList" :contactList="contactList" @deleteContact="deleteContact"></contact-list>
+            <contact-list :liveList="liveList" @deleteContact="deleteContact"></contact-list>
         </div>
     `
 }
