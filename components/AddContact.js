@@ -6,40 +6,45 @@ const AddContact = {
     },
 	data() {
         return {
-            newContactName: '',
-            newContactSecName: '',
-            newContactTel: '',
-            newContactImg: ''
+		newContact: {
+			id: '',
+			name: '',
+			secname: '',
+			phone: '',
+			img: ''
+		}
         }
     },
     methods: {
         addContact(){
-            let newContact = {}
-            newContact.id = Math.floor(Math.random() * Math.floor(9000000))
-            newContact.name = this.newContactName
-            newContact.secname = this.newContactSecName
-            newContact.phone = this.newContactTel
-            newContact.img = this.newContactImg
-            this.$emit('addContactItem', newContact)
+            this.newContact.id = Math.floor(Math.random() * Math.floor(9000000))
+            this.$emit('addContactItem', this.newContact)
+		this.newContact = {
+			id: '',
+			name: '',
+			secname: '',
+			phone: '',
+			img: ''
+		}
         }
     },
     template: `
         <form>
             <div>
                 <labeL>Имя</labeL>
-                <input type="text" v-model="newContactName">
+                <input type="text" v-model="this.newContact.name">
             </div>
             <div>
                 <labeL>Фамилия</labeL>
-                <input type="text" v-model="newContactSecName">
+                <input type="text" v-model="this.newContact.secname">
             </div>
             <div>
                 <labeL>Номер телефона</labeL>
-                <input type="text" v-model="newContactTel">
+                <input type="text" v-model="this.newContact.phone">
             </div>
             <div>
                 <labeL>Картинка</labeL>
-                <input type="text" v-model="newContactImg">
+                <input type="text" v-model="this.newContact.img">
             </div>
             <div>
                 <button @click.prevent="addContact">Добавить</button>
