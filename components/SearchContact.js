@@ -23,10 +23,13 @@ const SearchContact = {
             this.count = 0
             this.searchContactList.length = 0
             this.contactList.map(item =>{
-                if(item.name.includes(this.searchContactInput) || item.secname.includes(this.searchContactInput) || item.phone.includes(this.searchContactInput)){
-                    this.findText = true
-                    this.count++
-                    this.searchContactList.push(item)
+		    for (const [key, value] of Object.entries(item)) {
+                    let val = `${value}`
+                    if(val.includes(a)){                    
+			this.findText = true
+                    	this.count++
+                    	this.searchContactList.push(item)
+                    }
                 }
             })
             this.showContent = true
